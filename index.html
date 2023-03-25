@@ -1,1 +1,77 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Snake Game</title>
+	<style>
+		canvas {
+			border: 1px solid black;
+			background-color: #eee;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas" width="400" height="400"></canvas>
+	<script>
+		// Membuat variabel untuk mengakses canvas
+		var canvas = document.getElementById("canvas");
+		var ctx = canvas.getContext("2d");
+
+		// Membuat variabel untuk posisi dan ukuran ular
+		var snakeSize = 10;
+		var snakeX = canvas.width/2 - snakeSize/2;
+		var snakeY = canvas.height/2 - snakeSize/2;
+
+		// Membuat variabel untuk arah gerakan ular
+		var direction = "right";
+
+		// Membuat fungsi untuk menggambar ular
+		function drawSnake() {
+			ctx.fillStyle = "green";
+			ctx.fillRect(snakeX, snakeY, snakeSize, snakeSize);
+		}
+
+		// Membuat fungsi untuk menggerakkan ular
+		function moveSnake() {
+			if (direction == "right") {
+				snakeX += snakeSize;
+			} else if (direction == "left") {
+				snakeX -= snakeSize;
+			} else if (direction == "up") {
+				snakeY -= snakeSize;
+			} else if (direction == "down") {
+				snakeY += snakeSize;
+			}
+		}
+
+		// Membuat fungsi untuk menghapus canvas
+		function clearCanvas() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+		}
+
+		// Membuat loop game
+		function gameLoop() {
+			clearCanvas();
+			drawSnake();
+			moveSnake();
+			setTimeout(gameLoop, 100);
+		}
+
+		// Mengatur event listener untuk tombol keyboard
+		document.addEventListener("keydown", function(event) {
+			if (event.code == "ArrowRight") {
+				direction = "right";
+			} else if (event.code == "ArrowLeft") {
+				direction = "left";
+			} else if (event.code == "ArrowUp") {
+				direction = "up";
+			} else if (event.code == "ArrowDown") {
+				direction = "down";
+			}
+		});
+
+		// Memulai game
+		gameLoop();
+	</script>
+</body>
+</html>
